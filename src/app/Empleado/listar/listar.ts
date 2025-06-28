@@ -17,6 +17,10 @@ export class Listar implements OnInit {
 
   constructor(private service: Service, private router: Router) {}
 
+   Nuevo() {
+    this.router.navigate(['/add']); // Cambia '/crear' por tu ruta real
+  }
+
   ngOnInit() {
     this.service.getEmpleados().subscribe(data => {
       this.empleados = data;

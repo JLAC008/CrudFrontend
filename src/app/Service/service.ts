@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Empleado } from '../Modelo/Empleado';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,5 +13,9 @@ export class Service {
 
   getEmpleados(){
    return this.http.get<Empleado[]>(this.Url);
+  }
+
+    createEmpleado(empleado: Empleado): Observable<any> {
+    return this.http.post(this.Url, empleado); 
   }
 }

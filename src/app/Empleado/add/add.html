@@ -1,1 +1,48 @@
-<p>add works!</p>
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="container col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h3>Añadir empleado</h3>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="Guardar()">
+          <div class="form-group">
+            <label for="nombre">Nombre: </label>
+            <input type="text" class="form-control" id="nombre" [(ngModel)]="empleado.nombre" name="nombre" required>
+          </div>
+          <div class="form-group">
+            <label for="apellido">Apellido: </label>
+            <input type="text" class="form-control" id="apellido" [(ngModel)]="empleado.apellido" name="apellido" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email: </label>
+            <input type="email" class="form-control" id="email" [(ngModel)]="empleado.email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="telefono">Telefono: </label>
+            <input type="number" class="form-control" id="telefono" [(ngModel)]="empleado.telefono" name="telefono" required>
+          </div>
+          <div class="form-group">
+            <label for="direccion">Dirección: </label>
+            <input type="text" class="form-control" id="direccion" [(ngModel)]="empleado.direccion" name="direccion" required>
+          </div>
+          <div class="form-group">
+            <label for="puesto">Puesto: </label>
+            <input type="text" class="form-control" id="puesto" [(ngModel)]="empleado.puesto" name="puesto" required>
+          </div>
+          <div class="form-group">
+            <label for="salario">Salario: </label>
+            <input type="text" class="form-control" id="salario" [(ngModel)]="empleado.salario" name="salario" required>
+          </div>
+          <div class="form-group">
+            <label for="fecha_nacimiento">Fecha nacimiento: </label>
+            <input type="date" class="form-control" id="fecha_nacimiento" [(ngModel)]="empleado.fecha_nacimiento" name="fecha_nacimiento" required>
+          </div>
+          <div class="container mt-1 d-flex justify-content-center">
+            <button type="submit" class="btn btn-danger mt-3">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
