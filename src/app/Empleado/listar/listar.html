@@ -1,0 +1,44 @@
+<div class="container mt-5 d-flex justify-content-center">
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3>Empleados</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOMBRE</th>
+                        <th>APELLIDO</th>
+                        <th>EMAIL</th>
+                        <th>TELEFONO</th>
+                        <th>DIRECCION</th>
+                        <th>PUESTO</th>
+                        <th>SALARIO</th>
+                        <th>FECHA NACIMIENTO</th>
+                        <th>ACCION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let empleado of empleados" class="text-center">
+                        <td>{{empleado.id}}</td>
+                        <td>{{empleado.nombre}}</td>
+                        <td>{{empleado.apellido}}</td>
+                        <td>{{empleado.email}}</td>
+                        <td>{{empleado.telefono}}</td>
+                        <td>{{empleado.direccion}}</td>
+                        <td>{{empleado.puesto}}</td>
+                        <td>{{empleado.salario}}</td>
+                        <td>{{empleado.fecha_nacimiento}}</td>
+                        <td>
+                            <button class="btn btn-success me-2">Editar</button>
+                            <button class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
