@@ -22,11 +22,18 @@ export class Add {
     this.service.createEmpleado(this.empleado).subscribe(
       data => {
         alert('Empleado añadido con éxito');
-        this.router.navigate(['listar']); // Redirige a la página de listado
-      },
+       this.router.navigate(['listar']).then(() => {
+        window.location.reload();
+      });},
       error => {
         console.error('Error al añadir el empleado', error);
       }
     );
   }
+  Volver(){
+  this.router.navigate(['listar']).then(() => {
+        window.location.reload();
+      })
+  }
+
 }

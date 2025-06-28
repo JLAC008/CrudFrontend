@@ -39,7 +39,8 @@
             <input type="date" class="form-control" id="fecha_nacimiento" [(ngModel)]="empleado.fecha_nacimiento" name="fecha_nacimiento" required>
           </div>
           <div class="container mt-1 d-flex justify-content-center">
-            <button type="submit" class="btn btn-danger mt-3">Guardar</button>
+            <button type="submit" class="btn btn-danger mt-3 me-4">Guardar</button>  
+            <button (click)="Volver()" class="btn btn-primary mt-3">Volver</button>
           </div>
         </form>
       </div>
