@@ -17,23 +17,40 @@ export class Add {
   constructor(private service: Service, private router: Router) {}
 
   // Método Guardar que toma el objeto empleado
-  Guardar() {
-    // Aquí pasamos el objeto empleado al servicio para ser guardado
-    this.service.createEmpleado(this.empleado).subscribe(
-      data => {
-        alert('Empleado añadido con éxito');
-       this.router.navigate(['listar']).then(() => {
-        window.location.reload();
-      });},
-      error => {
-        console.error('Error al añadir el empleado', error);
+ Guardar() {
+  this.service.createEmpleado(this.empleado).subscribe(
+    data => {
+      const modalEl = document.getElementById('exampleModal');
+      if (modalEl) {
+        const bootstrap = (window as any).bootstrap;
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
       }
-    );
-  }
+    },
+    error => {
+        const modalError = document.getElementById('modalError');
+      if (modalError) {
+        const bootstrap = (window as any).bootstrap;
+        const modal = new bootstrap.Modal(modalError);
+        modal.show();
+      }
+    }
+  );
+}
   Volver(){
   this.router.navigate(['listar']).then(() => {
         window.location.reload();
       })
   }
+
+  CerrarModal() {
+  const modalEl = document.getElementById('modalError');
+  if (modalEl) {
+    const bootstrap = (window as any).bootstrap;
+    const modal = new bootstrap.Modal(modalEl);
+    modal.hide(); // Cierra el modal
+  }
+}
+
 
 }
