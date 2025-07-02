@@ -27,7 +27,7 @@ import { Empleado } from '../models/empleado.model';
       </div>
 
       <!-- Form -->
-      <div *ngIf="showForm" class="form-container">
+      <div *ngIf="showForm" class="form-container" id="empleadoForm">
         <div class="form-card">
           <h2 class="form-title">{{editingEmpleado ? 'Editar' : 'Nuevo'}} Empleado</h2>
           
@@ -926,6 +926,14 @@ export class EmpleadoListComponent implements OnInit {
     this.editingEmpleado = empleado;
     this.currentEmpleado = { ...empleado };
     this.showForm = true;
+
+    // Espera que Angular renderice el formulario y luego hace scroll
+    setTimeout(() => {
+      const element = document.getElementById('empleadoForm');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 0);
   }
 
   confirmDelete(empleado: Empleado) {
