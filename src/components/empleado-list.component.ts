@@ -972,7 +972,8 @@ export class EmpleadoListComponent implements OnInit {
   }
 
   getActiveEmployees(): number {
-    return this.empleados.filter(emp => !emp.fecha_ingreso).length;
+    const activosSinFechaIngreso = this.empleados.filter(emp => emp.activo === true).length;
+    return activosSinFechaIngreso;
   }
 
   getUniquePositions(): number {
