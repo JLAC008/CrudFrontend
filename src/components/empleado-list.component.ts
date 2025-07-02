@@ -14,7 +14,7 @@ import { Empleado } from '../models/empleado.model';
       <!-- Header -->
       <div class="header">
         <h1 class="main-title">Gestión de Empleados</h1>
-        <button class="btn-primary" (click)="showForm = !showForm">
+        <button class="btn-primary" (click)="toggleForm()">
           <span class="btn-icon">{{showForm ? '✕' : '+'}}</span>
           {{showForm ? 'Cancelar' : 'Nuevo Empleado'}}
         </button>
@@ -119,7 +119,7 @@ import { Empleado } from '../models/empleado.model';
               </div>
               <div *ngIf="editingEmpleado" class="form-group">
                 <div class="form-group">
-                <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                <label for="estado">Estado</label>
                 <select
                 id="activo"
                   [(ngModel)]="currentEmpleado.activo"
@@ -952,6 +952,16 @@ export class EmpleadoListComponent implements OnInit {
       });
     }
   }
+
+
+toggleForm() {
+  if (this.showForm) {
+    this.resetForm();
+    this.showForm = false;
+  } else {
+    this.showForm = true;
+  }
+}
 
   resetForm() {
     this.currentEmpleado = new Empleado();
