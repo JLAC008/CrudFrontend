@@ -14,7 +14,7 @@ import { Empleado } from '../models/empleado.model';
       <!-- Header -->
       <div class="header">
         <h1 class="main-title">Gestión de Empleados</h1>
-        <button class="btn-primary" (click)="showForm = !showForm">
+        <button class="btn-primary" (click)="toggleForm()">
           <span class="btn-icon">{{showForm ? '✕' : '+'}}</span>
           {{showForm ? 'Cancelar' : 'Nuevo Empleado'}}
         </button>
@@ -27,7 +27,7 @@ import { Empleado } from '../models/empleado.model';
       </div>
 
       <!-- Form -->
-      <div *ngIf="showForm" class="form-container">
+      <div *ngIf="showForm" class="form-container" id="empleadoForm">
         <div class="form-card">
           <h2 class="form-title">{{editingEmpleado ? 'Editar' : 'Nuevo'}} Empleado</h2>
           
@@ -104,7 +104,7 @@ import { Empleado } from '../models/empleado.model';
                   id="salario" 
                   [(ngModel)]="currentEmpleado.salario" 
                   name="salario"
-                  placeholder="$0.00">
+                  placeholder="0.00€">
               </div>
             </div>
 
@@ -117,23 +117,18 @@ import { Empleado } from '../models/empleado.model';
                   [(ngModel)]="currentEmpleado.fecha_nacimiento" 
                   name="fechaNacimiento">
               </div>
-              <div class="form-group">
-                <label for="fechaIngreso">Fecha de Ingreso</label>
-                <input 
-                  type="date" 
-                  id="fechaIngreso" 
-                  [(ngModel)]="currentEmpleado.fecha_ingreso" 
-                  name="fechaIngreso">
-              </div>
-            </div>
-
-            <div class="form-group" *ngIf="editingEmpleado">
-              <label for="fechaSalida">Fecha de Salida</label>
-              <input 
-                type="date" 
-                id="fechaSalida" 
-                [(ngModel)]="currentEmpleado.fecha_salida" 
-                name="fechaSalida">
+              <div *ngIf="editingEmpleado" class="form-group">
+                <div class="form-group">
+                <label for="estado">Estado</label>
+                <select
+                id="activo"
+                  [(ngModel)]="currentEmpleado.activo"
+                  name="activo">
+                  <option [ngValue]="true">Activo</option>
+                  <option [ngValue]="false">Inactivo</option>
+                </select>
+                </div>
+                </div>
             </div>
 
             <div class="form-actions">
@@ -206,8 +201,8 @@ import { Empleado } from '../models/empleado.model';
               <h3>{{empleado.nombre}} {{empleado.apellido}}</h3>
               <p class="employee-position">{{empleado.puesto}}</p>
             </div>
-            <div class="employee-status" [class.active]="!empleado.fecha_salida">
-              {{empleado.fecha_salida ? 'Inactivo' : 'Activo'}}
+            <div class="employee-status" [class.active]="empleado.activo">
+              {{ empleado.activo ? 'Activo' : 'Inactivo' }}
             </div>
           </div>
 
@@ -400,6 +395,16 @@ import { Empleado } from '../models/empleado.model';
     }
 
     .form-group input {
+      padding: 12px 16px;
+      border: 2px solid #FFE4B5;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: #FFFBF5;
+    }
+
+    .form-group input,
+    .form-group select {
       padding: 12px 16px;
       border: 2px solid #FFE4B5;
       border-radius: 12px;
@@ -921,6 +926,14 @@ export class EmpleadoListComponent implements OnInit {
     this.editingEmpleado = empleado;
     this.currentEmpleado = { ...empleado };
     this.showForm = true;
+
+    // Espera que Angular renderice el formulario y luego hace scroll
+    setTimeout(() => {
+      const element = document.getElementById('empleadoForm');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 0);
   }
 
   confirmDelete(empleado: Empleado) {
@@ -948,6 +961,16 @@ export class EmpleadoListComponent implements OnInit {
     }
   }
 
+
+toggleForm() {
+  if (this.showForm) {
+    this.resetForm();
+    this.showForm = false;
+  } else {
+    this.showForm = true;
+  }
+}
+
   resetForm() {
     this.currentEmpleado = new Empleado();
     this.editingEmpleado = null;
@@ -967,7 +990,8 @@ export class EmpleadoListComponent implements OnInit {
   }
 
   getActiveEmployees(): number {
-    return this.empleados.filter(emp => !emp.fecha_salida).length;
+    const activosSinFechaIngreso = this.empleados.filter(emp => emp.activo === true).length;
+    return activosSinFechaIngreso;
   }
 
   getUniquePositions(): number {
