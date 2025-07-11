@@ -1,0 +1,17 @@
+services:
+  crud-jlac-frontend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: crud-jlac-frontend
+    ports:
+      - "80:80"
+    dns:
+      - 8.8.8.8
+    tty: true
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+networks:
+  default:
+    external: true
+    name: app-net
