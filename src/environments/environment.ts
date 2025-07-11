@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://jlacdev.es:8090/api/empleados'
+  apiUrl: 'https://jlacdev.es:8090/api/empleados'
 };
